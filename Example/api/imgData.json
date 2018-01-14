@@ -1,4 +1,6 @@
 {
+  "active": 0,
+  "interval": 2000,
   "list":[
     {"src":"./images/children/0.jpg"},
     {"src":"./images/children/1.jpg"},

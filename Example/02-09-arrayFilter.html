@@ -38,10 +38,8 @@
         data:data,
         computed:{
           filterList:function(){
-            var self = this
-            return self.classList.filter(function(name){
-              return name.toLowerCase()
-                .indexOf(self.filter.toLowerCase()) != -1
+            return this.classList.filter(function(name){
+              return name.indexOf(this.filter) != -1
             })
           }
         }

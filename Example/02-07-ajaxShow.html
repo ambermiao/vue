@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8">`
   <title>02-07-ajaxShow</title>
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/layout.css">
@@ -37,15 +37,19 @@
 </head>
 <body>
   <div id="app">
-    <div id="container" v-if="imglist.length">
-      <div class="img">
-        <img :src="imgSrc">
+    <div id="container" v-if="imglist.length"
+      @mouseenter = "clearhandle"
+      @mouseleave = "sethandle">
+      <div class="img" >
+        <img :src="item.src" v-for="(item,index) in imglist" v-show="active == index">
       </div>
+      <div v-if="msg">{{msg}}</div>
       <div class="nav">
         <a
          href="javascript:;" 
          v-for="(item,index) in imglist"
-         :class="{active: active == index}"></a>
+         :class="{active: active == index}"
+         @click="clickhandle(index)"></a>
       </div>
     </div>
   </div>
@@ -54,9 +58,11 @@
   <script>
     (function(window){
         var data = {
-          active : 3,
-          imglist: []
+          active: '',
+          imglist: [],
+          msg: ''
         }
+        var timer,interval
         var vm = new Vue({
           el:'#app',
           data:data,
@@ -65,12 +71,36 @@
               return this.imglist[this.active].src
             }
           },
+          methods:{
+            clickhandle:function(index){
+              this.active = index;
+            },
+            nexthandle:function(){
+              this.active = (this.active+1+this.imglist.length) % this.imglist.length
+            },
+            sethandle:function(){
+              this.clearhandle()
+              timer = setInterval(this.nexthandle,interval)
+            },
+            clearhandle:function(){
+              clearInterval(timer)
+            }
+          },
           created:function(){
+            this.msg = "等待載入"
             superagent.get('./api/imgData.json').end((err,res) => {
               if(err){
                 alert('error');
               }else{
                 this.imglist = JSON.parse(res.text).list;
+                this.active = JSON.parse(res.text).active;
+                interval = JSON.parse(res.text).interval;
+                this.$nextTick(() => {
+                  if(this.imglist && this.imglist.length){
+                    this.sethandle()
+                  }
+                })
+                this.msg = ''
               }
             })
           }
