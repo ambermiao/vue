@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>02-04-bindAttrEvent</title>
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="css/layout.css">
+  <link rel="stylesheet" type="text/css" href="css/02-04-bindAttrEvent.css">
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="firstname">
+    <input type="text" v-model="lastname">
+    <div>{{ fullname }}</div>
+    <div>{{ fullname }}</div>
+  </div>
+  <script src="js/vue.js"></script>
+  <script>
+    (function(window){
+        var data = {
+            firstname : 'amber',
+            lastname: 'chen',
+            fullname: 'amber chen'
+        }
+        var em = new Vue({
+            el:'#app',
+            data:data,
+            // computed:{
+            //     fullname:function(){
+            //         console.log('!!!');
+            //         return this.firstname + '' + this.lastname;
+            //     }
+            // }
+            watch:{
+                firstname:function(value){
+                    this.fullname = value + ' ' + this.lastname
+                },
+                lastname:function(value){
+                    this.fullname = this.firstname + ' ' + value 
+                }
+            }
+        })
+    })(window)
+  </script>
+</body>
+</html>
