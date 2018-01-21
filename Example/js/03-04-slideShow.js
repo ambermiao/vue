@@ -12,8 +12,16 @@
       "./images/children/7.jpg"
     ]
   }
-  var alphaComponent = {
+  var imgMixin={
     props:['active','list'],
+    methods:{
+      nextHandler:function(){
+        this.$emit('next')
+      }
+    }
+  }
+  var alphaComponent = {
+    mixins:[imgMixin],
     template:`
     <div class="container">
       <div class="img"
@@ -23,15 +31,10 @@
         </transition>
       </div>
     </div>
-    `,
-    methods:{
-      nextHandler:function(){
-        this.$emit('next')
-      }
-    }
+    `
   }
   var slideComponent = {
-    props:['active','list'],
+    mixins:[imgMixin],
     template:`
     <div class="container">
       <div class="img" :style="{left:-100*active+'%'}"
@@ -40,12 +43,7 @@
           :style="{left:100*index+'%'}">
       </div>
     </div>
-    `,
-    methods:{
-      nextHandler:function(){
-        this.$emit('next')
-      }
-    }
+    `
   }
   var navComponent = {
     props:['active','total'],
