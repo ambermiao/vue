@@ -25,28 +25,30 @@
     <global-component></global-component>
     <local-component></local-component>
   </div>
+  
   <script src="js/vue.js"></script>
   <script>
     Vue.component('globalComponent',{
-      template:`
+      template: `
         <div class="global">
-          globalComponent
+          global component
         </div>
       `
     })
-    var localComponent = {
+    const local = {
       template: `
-        <div class="local">
-          <h1>localComponent</h1>
-          <global-component></global-component>
-        </div>
+      <div class="local">
+        <h1>localComponent</h1>
+        <global-component></global-component>
+      </div>
       `
     }
     var vm = new Vue({
       el:'#app',
       components:{
-        localComponent:localComponent
+        localComponent: local
       }
+      
     })
   </script>
 </body>

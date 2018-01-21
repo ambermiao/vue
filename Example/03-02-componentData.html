@@ -16,26 +16,26 @@
     <counter></counter>
     <counter></counter>
     <counter></counter>
+    <counter></counter>
   </div>
   <script src="js/vue.js"></script>
   <script>
-    // var data = {
-    //   count:0
-    // }
-    var data = function(){
-      return {
-        count:0
+    // var aa={
+    //   count: 0
+    // }//data會用同一個
+    const data = function(){
+      return{
+        count: 0
       }
     }
     Vue.component('counter',{
       data:data,
       template:`
-        <input type="button" :value="count"
-          @click="count++">
+      <input type="button" :value="count" @click="count++">
       `
     })
     var vm = new Vue({
-      el:'#app',
+      el:'#app'
     })
   </script>
 </body>
