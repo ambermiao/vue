@@ -12,6 +12,24 @@
       "./images/children/7.jpg"
     ]
   }
+  var alphaComponent = {
+    props:['active','list'],
+    template:`
+    <div class="container">
+      <div class="img"
+        @click="nextHandler">
+        <transition name="fade" v-for="(item,index) in list" :key="item" >
+          <img :src="item" v-if="active == index" >
+        </transition>
+      </div>
+    </div>
+    `,
+    methods:{
+      nextHandler:function(){
+        this.$emit('next')
+      }
+    }
+  }
   var slideComponent = {
     props:['active','list'],
     template:`
@@ -49,7 +67,8 @@
     data:data,
     components:{
       navComponent:navComponent,
-      slideComponent:slideComponent
+      slideComponent:slideComponent,
+      alphaComponent:alphaComponent
     },
     methods:{
       changehandle:function(index){

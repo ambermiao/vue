@@ -6,9 +6,19 @@
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/layout.css">
   <link rel="stylesheet" type="text/css" href="css/03-04-slideShow.css">
+  <style>
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .4s;
+    }
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+  </style>
 </head>
 <body>
   <div id="app" v-cloak>
+      <alpha-component :active="active" :list="imgList" @next="nexthandle"></alpha-component>
+
       <slide-component :active="active" :list="imgList" @next="nexthandle"></slide-component>
       <!-- <slide-component :active="active" :list="imgList" @next="nexthandle"></slide-component> -->
       <nav-component :active="active" :total="imgList.length" @change="changehandle"></nav-component>
