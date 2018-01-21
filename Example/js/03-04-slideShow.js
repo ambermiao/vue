@@ -15,10 +15,12 @@
   var slideComponent = {
     props:['active','list'],
     template:`
-    <div class="img" :style="{left:-100*active+'%'}"
-      @click="nextHandler">
-      <img :src="item" v-for="(item,index) in list"
-        :style="{left:100*index+'%'}">
+    <div class="container">
+      <div class="img" :style="{left:-100*active+'%'}"
+        @click="nextHandler">
+        <img :src="item" v-for="(item,index) in list"
+          :style="{left:100*index+'%'}">
+      </div>
     </div>
     `,
     methods:{
@@ -46,15 +48,15 @@
     el:"#app",
     data:data,
     components:{
-      slideComponent:slideComponent,
-      navComponent:navComponent
+      navComponent:navComponent,
+      slideComponent:slideComponent
     },
     methods:{
-      changeHandler:function(index){
+      changehandle:function(index){
         this.active = index
       },
-      nextHandler:function(){
-        this.active = (this.active + 1) % this.imgList.length
+      nexthandle:function(){
+        this.active = (this.active+1) % this.imgList.length
       }
     }
   })

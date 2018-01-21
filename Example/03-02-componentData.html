@@ -13,29 +13,33 @@
 </head>
 <body>
   <div id="app" v-cloak>
-    <counter></counter>
-    <counter></counter>
-    <counter></counter>
-    <counter></counter>
+    <counter :count="count" @increment="count++"></counter>
+    <counter :count="count" @increment="count++"></counter>
+    <counter :count="count" @increment="count++"></counter>
+    <counter :count="count" @increment="count++"></counter>
   </div>
   <script src="js/vue.js"></script>
   <script>
     // var aa={
     //   count: 0
     // }//data會用同一個
-    const data = function(){
-      return{
-        count: 0
-      }
+    // const data = function(){
+    //   return{
+    //     count: 0
+    //   }
+    // }
+    var data = {
+      count: 0
     }
     Vue.component('counter',{
-      data:data,
+      props:['count'],
       template:`
-      <input type="button" :value="count" @click="count++">
+      <input type="button" :value="count" @click="$emit('increment')">
       `
     })
     var vm = new Vue({
-      el:'#app'
+      el:'#app',
+      data:data
     })
   </script>
 </body>
