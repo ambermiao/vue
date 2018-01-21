@@ -39,15 +39,41 @@
         this.newTodo = ''
       },
       removeTodo:function(todo){
-        //  var index = this.todos.indexOf(todo)
-        //  this.todos.splice(index,1)
-        const todos = Se
-        Set.this.todos.delete(todo)
+         var index = this.todos.indexOf(todo)
+         this.todos.splice(index,1)
+        //const todos = Se
+        //Set.this.todos.delete(todo)
       },
       removeCompleted:function(){
         this.todos = filters['active'](this.todos);
+      },
+      editTodo:function(todo){
+        this.beforeTodo = todo.title
+        this.editedTodo = todo
+        // this.$nextTick(function(){
+        //   document.querySelector('.edit').focus()
+        // })
+        
+      },
+      doneEdit:function(todo){
+        if(!this.editedTodo) return;
+        this.editedTodo = null
+        todo.title = todo.title.trim()
+        if(!todo.title){
+          this.removeTodo(todo)
+        }
+      },
+      cancelEdit:function(todo){
+        this.editedTodo = null
+        todo.title = this.beforeTodo
       }
-      
+    },
+    directives:{
+      todoFocus:{
+        inserted:function(el){
+          el.focus()
+        }
+      }
     }
   })
 })(window)
