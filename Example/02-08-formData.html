@@ -13,41 +13,36 @@
 </head>
 <body>
   <div id="app" v-cloak>
-    <p>姓名：<input type="text" v-model="formData.name"></p>
-    <p>
-      性別：
+    <p>姓名: <input type="text" v-model="formData.name"></p>
+    <p>性別:
       <label v-for="item in sex">
-        <input type="radio" :value="item.value" v-model="formData.sex">
-        {{item.text}}
+        <input type="radio" v-model="formData.sex" :value="item.value">{{item.text}}
       </label>
     </p>
-    <p>
-      參加過那些課程？<br/>
+    <p>參加過哪些課程:
       <label v-for="item in join">
-        <input type="checkbox" :value="item.value" v-model="formData.join">
-        {{item.text}}
+        <input type="checkbox" v-model="formData.join" :value="item.value">{{item.text}}
       </label>
     </p>
-    <p v-if="joined">
-      最喜歡哪門課？<br/>
+    <p v-if="joined">最喜歡的課程:
       <label v-for="item in joined">
-        <input type="radio" :value="item.value" v-model="formData.fav">
-        {{item.text}}
+        <input type="radio" v-model="formData.fav" :value="item.value">{{item.text}}
       </label>
-    </p>
-    <p>
-      第幾次來飛肯：
-      <select v-model="formData.times">
-        <option v-for="item in times" :value="item.value">
-          {{item.text}}
-        </option>
-      </select>
     </p>
     <p>
       <label>
-        <input type="checkbox" v-model="formData.edm">
-        訂閱電子報
+        <input type="checkbox" v-model="formData.edm" >訂閱電子報
       </label>
+    </p>
+    <p>
+      <select v-model="formData.times">
+        <option v-for="item in times" :value="item.value">{{item.text}}</option>
+      </select>
+    </p>
+    <p>
+      <select multiple v-model="formData.times2">
+        <option v-for="item in times" :value="item.value">{{item.text}}</option>
+      </select>
     </p>
     <hr>
     {{ formData }}
@@ -62,6 +57,7 @@
           join:[],
           fav:null,
           times:0,
+          times2:[],
           edm:false
         },
         sex:[
@@ -88,18 +84,19 @@
         computed:{
           joined:function(){
             var self = this
-            var ary = []
-            var favStatus = false
+            let ary = []
+            let favStatus = false
             self.formData.join.forEach(function(index){
               if(self.formData.fav == index) favStatus = true
               ary.push(self.join[index])
             })
             if(!favStatus) self.formData.fav = null
-            return ary.length > 0 ? ary.sort(function(a,b){
-              return a.value - b.value
-            }) : null
+            return ary.length > 0 ?  ary.sort(function(a,b){
+              return a.value - b.value 
+            }): null
           }
         }
+        
       })
     })(window)
   </script>

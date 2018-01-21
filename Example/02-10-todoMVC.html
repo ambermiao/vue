@@ -11,55 +11,42 @@
       <header class="header">
         <h1>todos</h1>
         <input class="new-todo" autofocus autocomplete="off"
-          placeholder="What needs to be done?"
-          v-model="newTodo" @keyup.enter="addTodo">
+          placeholder="What needs to be done?" v-model="newTodo" @keyup.enter = "addTodo">
       </header>
       <section class="main" v-show="todos.length">
-        <input class="toggle-all" type="checkbox" v-model="allDone">
+        <input class="toggle-all" type="checkbox">
         <ul class="todo-list">
-          <li class="todo"
-            v-for="todo in filteredTodos"
-            :class="{
-              completed: todo.completed,
-              editing: todo == editedTodo}">
+          <li class="todo" 
+          v-for="todo in filteredTodos"
+          :class="{completed: todo.complete}">
             <div class="view">
-              <input class="toggle" type="checkbox"
-                v-model="todo.completed">
-              <label @dblclick="editTodo(todo)">
+              <input class="toggle" type="checkbox" v-model="todo.complete">
+              <label>
                 {{todo.title}}
               </label>
-              <button class="destroy"
-                @click="removeTodo(todo)">
+              <button class="destroy" @click="removeTodo(todo)">
               </button>
             </div>
-            <input class="edit" type="text"
-              v-model="todo.title"
-              v-if="todo == editedTodo"
-              v-todo-focus
-              @blur="doneEdit(todo)"
-              @keyup.enter="doneEdit(todo)"
-              @keyup.esc="cancelEdit(todo)">
+            <input class="edit" type="text">
           </li>
         </ul>
       </section>
-      <footer class="footer" v-show="todos.length">
+      <footer class="footer">
         <span class="todo-count">
-          <strong>{{remaining}}</strong>
-          {{pluralize('item', remaining)}} left
+          <strong>{{remaining}}</strong> item left
         </span>
         <ul class="filters">
           <li><a href="javascript:;"
             :class="{selected: visibility == 'all'}"
-            @click="visibility = 'all'" >All</a></li>
+            @click = "visibility = 'all'">All</a></li>
           <li><a href="javascript:;"
             :class="{selected: visibility == 'active'}"
-            @click="visibility = 'active'" >Active</a></li>
+            @click = "visibility = 'active'">Active</a></li>
           <li><a href="javascript:;"
             :class="{selected: visibility == 'completed'}"
-            @click="visibility = 'completed'" >Completed</a></li>
+            @click = "visibility = 'completed'">Completed</a></li>
         </ul>
-        <button class="clear-completed" @click="removeCompleted"
-          v-show="todos.length > remaining">
+        <button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
           Clear completed
         </button>
       </footer>
