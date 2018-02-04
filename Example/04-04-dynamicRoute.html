@@ -12,10 +12,12 @@
     <header>
       <h1>Flycan 飛肯設計學苑</h1>
       <div>
-        <router-link v-for="item in menu"
-          :to="{ name: item.name }"
-          :exact="item.name == 'index'">
-          {{item.text}}
+        <router-link 
+          v-for="item in menu"
+          :to="{name:item.name}"
+          :exact="item.name == 'index'"
+        >
+        {{item.text}}
         </router-link>
       </div>
     </header>

@@ -28,10 +28,11 @@
   <div id="app" v-cloak>
     <transition
       enter-to-class="animated"
-      leave-to-class="animated"
       enter-active-class="tada"
-      leave-active-class="tada">
-      <img :src="src" v-if="show">
+      leave-to-class="animated"
+      leave-active-class="tada"
+    >
+        <img :src="src" v-if="show">
     </transition>
     <br>
     <a href="javascript:;" @click="switchHandler">Switch</a>

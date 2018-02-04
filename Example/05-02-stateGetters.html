@@ -26,28 +26,27 @@
   <script src="js/vuex.js"></script>
   <script>
     var store = new Vuex.Store({
-      state: {
-        message: 'Hello Vue!!!'
+      state:{
+        message: 'Hello World!!'
       },
-      getters: {
+      getters:{
         upMessage:function(state){
           return state.message.toUpperCase()
         },
         lowMessage:function(state){
           return state.message.toLowerCase()
-        },
+        }
       }
     })
-
     var storeMixin = {
       computed:{
-        message:function(){
+        message: function(){
           return this.$store.state.message
         },
-        upMessage:function(){
+        upMessage: function(){
           return this.$store.getters.upMessage
         },
-        lowMessage:function(){
+        lowMessage: function(){
           return this.$store.getters.lowMessage
         }
       }
@@ -80,9 +79,10 @@
     })
 
     var vm = new Vue({
-      mixins: [storeMixin],
       el:'#app',
-      store:store
+      store:store,
+      mixins:[storeMixin]
+      
     })
   </script>
 </body>

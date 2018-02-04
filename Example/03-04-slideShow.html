@@ -17,11 +17,10 @@
 </head>
 <body>
   <div id="app" v-cloak>
-      <alpha-component :active="active" :list="imgList" @next="nexthandle"></alpha-component>
-
-      <slide-component :active="active" :list="imgList" @next="nexthandle"></slide-component>
-      <!-- <slide-component :active="active" :list="imgList" @next="nexthandle"></slide-component> -->
-      <nav-component :active="active" :total="imgList.length" @change="changehandle"></nav-component>
+      <alpha-component :active="alpha" :list="imgList" @next="nexthandle('alpha')"></alpha-component>
+      <nav-component :active="alpha" :total="imgList.length" @change="changehandle($event,'alpha')"></nav-component>
+      <slide-component :active="active" :list="imgList" @next="nexthandle('active')"></slide-component>
+      <nav-component :active="active" :total="imgList.length" @change="changehandle($event,'active')"></nav-component>
   </div>
   <script src="js/vue.js"></script>
   <script src="js/superagent.js"></script>

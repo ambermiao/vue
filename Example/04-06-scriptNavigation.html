@@ -29,25 +29,21 @@
   <script src="js/vue-router.js"></script>
   <script>
     var page = {
-      template: `
-      <div class="page">
-        <h1>{{$route.fullPath}}</h1>
-      </div>
+      template:`
+        <div class="page">
+          <h1>{{$route.fullPath}}</h1>  
+        </div>
       `,
-      beforeRouteEnter (to, from, next) {
-        console.log('page enter')
+      beforeRouteEnter: (to, from, next) => {
         next()
       },
-      beforeRouteUpdate (to, from, next) {
-        console.log('page update')
+      beforeRouteUpdate: (to,from,next)=>{
         next()
       },
-      beforeRouteLeave (to, from, next) {
-        console.log('page leave')
+      beforeRouteLeave: (to, from, next) => {
         next()
       }
     }
-
     var alex = {
       template:`
       <div class="page">
@@ -58,12 +54,10 @@
 
     var router = new VueRouter({
       routes :[
-        { path: '/alex', component: alex ,
-          beforeEnter:function(to,from,next){
+        { path: '/alex', component: alex,
+          beforeEnter: (to, from, next) => {
             if(from.fullPath != '/'){
-              console.log('Reject route to alex from ',
-                from.fullPath)
-              next('/')
+              next({path:'/'})
             }else{
               next()
             }
@@ -73,13 +67,11 @@
       ]
     })
     router.beforeEach(function(to,from,next){
-      console.log('Route to ',to.fullPath)
+      console.log(to,from)
       next()
     })
     router.afterEach(function(to,from){
-      console.log('Routed')
     })
-
     new Vue({
       el:'#app',
       router:router

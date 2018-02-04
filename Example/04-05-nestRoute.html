@@ -57,10 +57,6 @@
             component: contact,
             children:[
               {
-                path:'',
-                redirect: 'phone' 
-              },
-              {
                 path:'phone',
                 component:phone
               },
@@ -72,6 +68,10 @@
                 path:'email',
                 component:email
               },
+              {
+                path:'*',
+                redirect: 'phone' 
+              }
             ]
            },
           { path: '*', redirect: '/contact' }

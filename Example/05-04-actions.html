@@ -37,11 +37,13 @@
       },
       actions:{
         change:function(context,data){
-          return new Promise((resolve, reject) => {
-            setTimeout(function() {
+          return new Promise((resolve,reject) =>{
+            setTimeout(function(){
               context.commit('change',data)
               resolve()
-            }, 1000)
+              // .then(()=>{})
+              // .catch(()=>{})
+            },500)
           })
         }
       }
@@ -53,10 +55,10 @@
           get:function(){
             return this.$store.state.message
           },
-          set:function(val){
-            this.$store.dispatch('change', val)
-            .then(function(){
-              console.log('actions complete')
+          set:function(value){
+            this.$store.dispatch('change',value)
+            .then(()=>{
+              console.log('yes')
             })
           }
         }

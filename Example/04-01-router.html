@@ -10,17 +10,9 @@
   <div id="app">
     <header>
       <h1>Flycan 飛肯設計學苑</h1>
-      <div>
-        <router-link to="/" exact>
-          首頁
-        </router-link>
-        <router-link to="/course">
-          課程
-        </router-link>
-        <router-link to="/contact">
-          聯絡
-        </router-link>
-      </div>
+      <router-link to="/" exact>首頁</router-link>
+      <router-link :to="{name:'course'}">課程</router-link>
+      <router-link to="/contact">聯絡</router-link>
     </header>
     <router-view></router-view>
   </div>
@@ -28,7 +20,6 @@
   <script src="js/vue-router.js"></script>
   <script>
     (function(window){
-
       var index = {
         template: `
           <div class="page">
@@ -50,17 +41,24 @@
           </div>
         `
       }
-
+      var error = {
+        template: `
+          <div class="page">
+            <h2>404</h2>
+          </div>
+        `
+      }
       var router = new VueRouter({
-        routes :[
-          { path: '/', component: index },
-          { path: '/course', component: course },
-          { path: '/contact', component: contact }
+        routes: [
+          {name:'index',path:'/',component: index},
+          {name:'course',path:'/course',component: course},
+          {name:'contact',path:'/contact',component: contact},
+          {name:'error',path:'/error',component: error},
+          {path:'*', redirect:'/error'}
         ]
       })
-
-      new Vue({
-        el:'#app',
+      var vm = new Vue({
+        el: '#app',
         router:router
       })
 

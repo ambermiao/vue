@@ -16,15 +16,11 @@
 <body>
   <div id="app" v-cloak>
     <header>
-      <h1>Flycan 飛肯設計學苑</h1>
-      <div>
-        <a href="javascript:;"
-          v-for="item in menu" 
-          :class="{active:view == item.name}"
-          @click="view=item.name">
-          {{item.text}}
-        </a>
-      </div>
+      <a href="javascript:;"
+        v-for="item in menu"
+        @click="view = item.name"
+        :class="{active: view == item.name}"
+      >{{item.text}}</a>
     </header>
     <transition
       @before-enter="beforeEnter"
@@ -32,9 +28,10 @@
       @after-enter="afterEnter"
       @leave="leave"
       @after-leave="afterLeave"
-      :css="false">
-      <component v-bind:is="view"></component>
+    >
+        <component :is="view"></component>
     </transition>
+    
   </div>
   <script src="js/vue.js"></script>
   <script src="js/velocity.min.js"></script>
@@ -73,24 +70,31 @@
             `
           },
         },
-        methods: {
-          beforeEnter: function (el) {
+        methods:{
+          beforeEnter: (el) => {
             el.style.opacity = 0
             el.style.position = 'absolute'
+            el.style.top= 0
           },
-          enter: function (el, done) {
-            Velocity(el, { opacity: 1 }, { duration: 500 ,
-              complete: done })
+          enter: (el,done) =>{
+            Velocity(el,{opacity:1},{duration:500,complete: done})
           },
-          afterEnter: function (el, done) {
-            el.style.cssText = ''
+          //jquery
+          // enter:function(el,done){
+          //   $(el).animate({opacity:1},{duration:500, complete:function(){
+          //     alert('ok')
+          //     done()
+          //   }})
+
+          // },
+          afterEnter:(el) =>{
+            el.style.cssText = ''//清除樣式
           },
-          leave: function (el, done) {
-            Velocity(el, { opacity: 0 }, { duration: 500 ,
-              complete: done })
+          leave:(el,done)=>{
+            Velocity(el,{opacity:0},{duration:500,complete: done})
           },
-          afterLeave: function (el, done) {
-            console.log('component out')
+          afterLeave:(el)=>{
+            el.style.cssText = ''//清除樣式
           }
         }
       })

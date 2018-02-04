@@ -1,6 +1,7 @@
 (function(window){
   var data = {
     active:0,
+    alpha:0,
     imgList:[
       "./images/children/0.jpg",
       "./images/children/1.jpg",
@@ -69,11 +70,11 @@
       alphaComponent:alphaComponent
     },
     methods:{
-      changehandle:function(index){
-        this.active = index
+      changehandle:function(index,type){
+        this[type] = index
       },
-      nexthandle:function(){
-        this.active = (this.active+1) % this.imgList.length
+      nexthandle:function(type){
+        this[type] = (this[type]+1) % this.imgList.length
       }
     }
   })

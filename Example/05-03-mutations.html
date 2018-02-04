@@ -17,7 +17,7 @@
 <body>
   <div id="app" v-cloak>
     <h1>{{ message }}</h1>
-    <input type="text" v-model.trim="message">
+    <input type="text" v-model="message">
     <p>====================</p>
     <message></message>
   </div>
@@ -35,43 +35,21 @@
         }
       }
     })
-
-    var storeMixin = {
+    
+    var vm = new Vue({
+      el:'#app',
+      store:store,
       computed:{
         message:{
           get:function(){
             return this.$store.state.message
           },
-          set:function(val){
-            // this.$store.state.message = val
-            this.$store.commit('change',val)
+          set:function(value){
+            // return this.$store.state.message = value
+            this.$store.commit('change',value)
           }
         }
       }
-    }
-    var messageInput = {
-      mixins: [storeMixin],
-      template:`
-        <input type="text" v-model.trim="message">
-      `
-    }
-    Vue.component('message',{
-      mixins: [storeMixin],
-      components:{
-        messageInput:messageInput
-      },
-      template:`
-        <div>
-          <h1>{{ message }}</h1>
-          <message-input></message-input>
-        </div>
-      `
-    })
-    
-    var vm = new Vue({
-      mixins: [storeMixin],
-      el:'#app',
-      store:store
     })
   </script>
 </body>
